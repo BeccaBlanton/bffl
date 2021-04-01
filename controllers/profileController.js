@@ -26,20 +26,22 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  filter: function(req,res) {    
+  filter: function(req,res){    
     db.Profile
-    .find({
-      gender: { $in: req.query.gender},
-      politics: { $in: req.query.politics},
-      age: { $gt: req.query.age[0], $lt: req.query.age[1]},
-      smoke: { $in: req.query.smoke},
-      drink: { $in: req.query.drink},
-      cannabis: { $in: req.query.cannabis},
-      children: { $in: req.query.children}
-    })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
+    .find({})
+      .where("gender").in(req.query.gender)
+      .where("politics").in(req.query.politics)
+      .where("age").gte(req.query.age[0]).lte(req.query.age[1])
+      .where("smoke").in(req.query.smoke)
+      .where("drink").in(req.query.drink)
+      .where("cannabis").in(req.query.cannabis)
+      .where("children").in(req.query.children)
+      .where("sign").in(req.query.sign)
+      .where("interests.interest").in(req.query.interests)
+        .then(dbModel => {
+          res.json(dbModel)})
+        .catch(err => res.status(422).json(err));
+    },
   create: function(req, res) {
     db.Profile
       .create(req.body)

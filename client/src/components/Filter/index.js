@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import API from "../../utils/API";
 import AuthService from "../../services/authService";
+import getUserProfile from "../../utils/getUserProfile";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
@@ -18,7 +19,7 @@ import './Filter.css'
 function Filter(props){
   const currentUser = AuthService.getCurrentUser();
   const [ageRange, setAgeRange] = React.useState([18, 65]);
-  const [distance, setDistance] = React.useState();
+  const [distance, setDistance] = React.useState(15);
   const [interestList, setInterestList] = useState([]);
   const [filterGender, setFilterGender] = useState([]);
   const [filterPolitics, setFilterPolitics] = useState([]);
@@ -27,9 +28,53 @@ function Filter(props){
   const [filterSmoke, setFilterSmoke] = useState([]);
   const [filterCannabis, setFilterCannabis] = useState([]);
   const [filterSign, setFilterSign] = useState([]);
+  const [interestFilter, setInterestFilter] = useState([])
+  const checkboxArray = document.getElementsByClassName('interests')
+
+  const { filters } = getUserProfile()
+
+  const genderOptions = ["Female", "Male","Non-binary", "Transgender", "Intersex", "No Preference"]
+  const politicOptions = ["Conservative", "Moderate", "Liberal", "No Affiliation", "No Preference"]
+  const smokeOptions = ["Regularly", "Socially", "Occasionally", "Never", "No Preference"]
+  const drinkOptions = ["Regularly", "Socially", "Occasionally", "Never", "No Preference"]
+  const cannabisOptions = ["Regularly", "Socially", "Occasionally", "Never", "No Preference"]
+  const kidOptions = ["Has Children", "No Children", "No Preference"]
+  const signOptions = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces', "No Preference"]
   
   let newState = []
   
+  useEffect(() => {
+    API.getInterests()
+        .then(res => {
+            setInterestList(res.data)
+        })
+        .catch(err => { 
+            if (err.response) { 
+            console.log('error with response')
+            } else if (err.request) { 
+                console.log('error with request') 
+            } else { 
+                console.log('something is not quite right') 
+            } 
+        });
+  }, [])
+
+  useEffect(() => {
+    if(filters){
+      setInterestFilter(filters.interests)
+      setAgeRange(filters.ageRange)
+      setDistance(filters.distance)
+      setFilterCannabis(filters.cannabis)
+      setFilterDrink(filters.drink)
+      setFilterSmoke(filters.smoke)
+      setFilterGender(filters.gender)
+      setFilterPolitics(filters.politics)
+      setFilterSign(filters.sign)
+      setFilterChildren(filters.children)
+
+    }
+  }, [filters])
+
   const handleGenderChange = (newVal) => {
       newState = [...filterGender, newVal]
       if(newState.length > 1){
@@ -94,41 +139,37 @@ function Filter(props){
         setDistance(newValue);
       };
   
-  useEffect(() => {
-      API.getInterests()
-          .then(res => {
-              setInterestList(res.data)
-              })
-          .catch(err => { 
-              if (err.response) { 
-              console.log('error with response')
-              } else if (err.request) { 
-                  console.log('error with request') 
-              } else { 
-                  console.log('um, sh*ts really broken') 
-              } });
-  }, [])
-  
   function handleFormSubmit(e){
       e.preventDefault()
-        console.log(filterGender)
-         const object = { filterBy: [{
-              distance: distance,
-              gender: filterGender[0],
-              politics: filterPolitics[0],
-              ageRange: ageRange,
-              children: filterChildren[0], 
-              drink: filterDrink[0], 
-              smoke: filterSmoke[0], 
-              cannabis: filterCannabis[0]
-          }]
+      const interestPreference = []
+
+      for( var i = 0; i < checkboxArray.length; i ++){
+          if (checkboxArray[i].children[0].checked === true){
+              
+              const choices = {
+                  interest: checkboxArray[i].children[0].id,
+                  _id: checkboxArray[i].children[0].dataset.id
+              }
+              interestPreference.push(choices)
           }
-          console.log(object)
-  
+      }
+
+      const object = { filterBy: [{
+          distance: distance,
+          gender: filterGender[0],
+          politics: filterPolitics[0],
+          ageRange: ageRange,
+          children: filterChildren[0], 
+          drink: filterDrink[0], 
+          smoke: filterSmoke[0], 
+          cannabis: filterCannabis[0],
+          sign: filterSign[0],
+          interests: interestPreference
+      }]
+      }
+      
       API.editProfileByName(object, currentUser.username)
       .then(res => {
-          // props.history.push("/profile");
-          // window.location.reload()
           })
       .catch(err => { 
           if (err.response) { 
@@ -249,73 +290,54 @@ return (
               </div>
               <h4>Gender:</h4>
               <ToggleButtonGroup type="checkbox" name="gender" onChange={handleGenderChange} >
-                  <ToggleButton   variant="info" value={'Male'}>Male</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Female'}>Female</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Non-Binary'}>Non-Binary</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Transgender'}>Transgender</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Intersex' }>Intersex</ToggleButton>
-                  <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
+                {genderOptions.map(item =>  
+                  { if(filterGender.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Political Affiliation:</h4>
               <ToggleButtonGroup type="checkbox" name="politics" onChange={handlePoliticsChange}>
-                  <ToggleButton   variant="info"  value={'Conservative'}>Conservative</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Moderate'}>Moderate</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Liberal'}>Liberal</ToggleButton>
-                  <ToggleButton   variant="info"  value={'No Affliation'}>No Affliation</ToggleButton>
-                  <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
+                {politicOptions.map(item =>  
+                  { if(filterPolitics.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Children:</h4>
               <ToggleButtonGroup type="checkbox" name="children" onChange={handleChildrenChange}>
-                  <ToggleButton   variant="info"  value={'Has Children'}>Yes</ToggleButton>
-                  <ToggleButton   variant="info"  value={'No Children'}>No</ToggleButton>
-                  <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
+                {kidOptions.map(item =>  
+                  { if(filterChildren.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Drinks:</h4>
               <ToggleButtonGroup type="checkbox" name="drink" onChange={handleDrinkChange}>
-                  <ToggleButton   variant="info"  value={'Regularly'}>Regularly</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Socially'}>Socially</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Occasionally'}>Occasionally</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Never'}>Never</ToggleButton>
-                  <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
+                {drinkOptions.map(item =>  
+                  { if(filterDrink.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Smokes:</h4>
               <ToggleButtonGroup type="checkbox" name="smoke" onChange={handleSmokeChange}>
-                  <ToggleButton   variant="info"  value={'Regularly'}>Regularly</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Socially'}>Socially</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Occasionally'}>Occasionally</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Never'}>Never</ToggleButton>
-                  <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
+                {smokeOptions.map(item =>  
+                  { if(filterSmoke.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Uses cannabis:</h4>
               <ToggleButtonGroup type="checkbox" name="cannabis" onChange={handleCannabisChange}>
-                  <ToggleButton   variant="info"  value={'Regularly'}>Regularly</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Socially'}>Socially</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Occasionally'}>Occasionally</ToggleButton>
-                  <ToggleButton   variant="info"  value={'Never'}>Never</ToggleButton>
-                  <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
+                {cannabisOptions.map(item =>  
+                  { if(filterCannabis.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Sign:</h4>
                <ToggleButtonGroup type="checkbox" name="sign" onChange={handleSignChange}>
-                  <ToggleButton   variant="info"  value='Aquarius'>Aquarius</ToggleButton>
-                  <ToggleButton   variant="info"  value='Pisces'>Pisces</ToggleButton>
-                  <ToggleButton   variant="info"  value='Aries'>Aries</ToggleButton>
-                  <ToggleButton   variant="info"  value='Taurus'>Taurus</ToggleButton>
-                  <ToggleButton   variant="info"  value='Gemini'>Gemini</ToggleButton>
-                  <ToggleButton   variant="info"  value='Cancer'>Cancer</ToggleButton>
-                  <ToggleButton   variant="info"  value='Leo'>Leo</ToggleButton>
-                  <ToggleButton   variant="info"  value='Virgo'>Virgo</ToggleButton>
-                  <ToggleButton   variant="info"  value='Libra'>Libra</ToggleButton>
-                  <ToggleButton   variant="info"  value='Scorpio'>Scorpio</ToggleButton>
-                  <ToggleButton   variant="info"  value='Sagittarius'>Sagittarius</ToggleButton>
-                  <ToggleButton   variant="info"  value='Capricorn'>Capricorn</ToggleButton>
-                  <ToggleButton   variant="info"  value='No Preference'>No Preference</ToggleButton>
+                {signOptions.map(item =>  
+                  { if(filterSign.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
                </ToggleButtonGroup>
               <h4>Interests:</h4>
               <Form type="checkbox">
                   <div className="mb-3">
-                  {interestList.map((item) =>(
+                  {interestList.map((item) => {if(interestFilter.includes(item.interest) === true) {return (
+                      <Form.Check inline key={item._id} className="interests active" label={item.interest} type="checkbox" id={item.interest} data-id={item._id} />
+                  )} else {return (
                       <Form.Check inline key={item._id} className="interests" label={item.interest} type="checkbox" id={item.interest} data-id={item._id} />
-                  ))}
+                  )}})}
                   </div>
               </Form>
 

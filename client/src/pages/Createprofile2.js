@@ -25,8 +25,6 @@ function Createprofile2 (props){
     const [interestList, setInterestList] = useState([]);
     const checkboxArray = document.getElementsByClassName('interests')
 
-
-
     const handleGenderChange = (val) => setGender(val);
     const handlePoliticsChange = (val) => setPolitics(val);
     const handleChildrenChange = (val) => setChildren(val);
