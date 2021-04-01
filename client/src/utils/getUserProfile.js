@@ -72,7 +72,6 @@ const getUserProfile = () => {
         filters,
         filterUpdate,
         setFilterUpdate,
-
     }
 }
 

@@ -209,7 +209,6 @@ function Matching (props) {
 
   const outOfFrame = (username) => {
     console.log(username + ' left the screen!')
-
   }
 
   const swipe = (dir, nameToDelete, profileId) => {

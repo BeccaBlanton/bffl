@@ -151,7 +151,6 @@ function Createprofile3 (props){
           }]
           }
       
-
       API.editProfileByName(object, currentUser.username)
       .then(res => {
           props.history.push("/profile");

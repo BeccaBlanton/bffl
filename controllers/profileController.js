@@ -26,7 +26,7 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  filter: function(req,res) {    
+  filter: function(req,res){    
     db.Profile
     .find({})
       .where("gender").in(req.query.gender)

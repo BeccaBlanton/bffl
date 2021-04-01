@@ -16,7 +16,6 @@ function Favorites (props){
     }
 
     useEffect(() => {
-    
         if(currentUser === null){
           props.history.push("/login");
           window.location.reload()

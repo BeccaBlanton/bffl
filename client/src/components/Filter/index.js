@@ -168,7 +168,6 @@ function Filter(props){
       }]
       }
       
-  
       API.editProfileByName(object, currentUser.username)
       .then(res => {
           })
