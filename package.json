@@ -1,15 +1,8 @@
 {
-<<<<<<< HEAD
-  "name": "friendapp",
-  "homepage": ".",
-  "version": "1.0.0",
-  "description": "Mern Demo",
-=======
   "name": "bffl",
   "homepage": ".",
   "version": "1.0.0",
   "description": "friendship finding app",
->>>>>>> c97f040238c1735de6d6eaad21880bdbb2cac440
   "main": "server.js",
   "engines": {
     "npm": "6.14.8",
