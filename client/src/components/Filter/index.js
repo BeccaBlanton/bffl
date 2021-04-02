@@ -290,9 +290,9 @@ return (
               </div>
               <h4>Gender:</h4>
               <ToggleButtonGroup type="checkbox" name="gender" onChange={handleGenderChange} >
-                {genderOptions.map(item =>  
+                {genderOptions.map((item, index) =>  
                   { if(filterGender.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
-                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
+                    else { return (<ToggleButton variant="info" value={item} key={index}>{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Political Affiliation:</h4>
               <ToggleButtonGroup type="checkbox" name="politics" onChange={handlePoliticsChange}>

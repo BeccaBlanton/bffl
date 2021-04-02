@@ -73,8 +73,8 @@ const Profile = (props) => {
                 <h3>Interests:</h3>
                 <div className="row">
                   <h3 style={{margin:"auto"}}>
-                {profile.interests.map(item => (
-                  <Badge pill variant="info">{item.interest}</Badge>
+                {profile.interests.map((item, index) => (
+                  <Badge pill variant="info" key={index}>{item.interest}</Badge>
                 ))}
                 </h3>
                 </div>
