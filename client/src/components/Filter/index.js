@@ -291,44 +291,44 @@ return (
               <h4>Gender:</h4>
               <ToggleButtonGroup type="checkbox" name="gender" onChange={handleGenderChange} >
                 {genderOptions.map((item, index) =>  
-                  { if(filterGender.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
+                  { if(filterGender.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active" key={index}>{item}</ToggleButton>)} 
                     else { return (<ToggleButton variant="info" value={item} key={index}>{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Political Affiliation:</h4>
               <ToggleButtonGroup type="checkbox" name="politics" onChange={handlePoliticsChange}>
-                {politicOptions.map(item =>  
-                  { if(filterPolitics.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
-                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
+                {politicOptions.map((item, index) =>  
+                  { if(filterPolitics.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active" key={index}>{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} key={index}>{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Children:</h4>
               <ToggleButtonGroup type="checkbox" name="children" onChange={handleChildrenChange}>
-                {kidOptions.map(item =>  
-                  { if(filterChildren.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
-                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
+                {kidOptions.map((item, index) =>  
+                  { if(filterChildren.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active" key={index}>{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} key={index}>{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Drinks:</h4>
               <ToggleButtonGroup type="checkbox" name="drink" onChange={handleDrinkChange}>
-                {drinkOptions.map(item =>  
-                  { if(filterDrink.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
-                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
+                {drinkOptions.map((item, index) =>  
+                  { if(filterDrink.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active" key={index}>{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} key={index}>{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Smokes:</h4>
               <ToggleButtonGroup type="checkbox" name="smoke" onChange={handleSmokeChange}>
-                {smokeOptions.map(item =>  
-                  { if(filterSmoke.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
-                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
+                {smokeOptions.map((item, index) =>  
+                  { if(filterSmoke.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active" key={index}>{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} key={index}>{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Uses cannabis:</h4>
               <ToggleButtonGroup type="checkbox" name="cannabis" onChange={handleCannabisChange}>
-                {cannabisOptions.map(item =>  
-                  { if(filterCannabis.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
-                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
+                {cannabisOptions.map((item, index) =>  
+                  { if(filterCannabis.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active" key={index}>{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} key={index}>{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Sign:</h4>
                <ToggleButtonGroup type="checkbox" name="sign" onChange={handleSignChange}>
-                {signOptions.map(item =>  
-                  { if(filterSign.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active">{item}</ToggleButton>)} 
-                    else { return (<ToggleButton variant="info" value={item} >{item}</ToggleButton>)} })}
+                {signOptions.map((item, index) =>  
+                  { if(filterSign.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active" key={index}>{item}</ToggleButton>)} 
+                    else { return (<ToggleButton variant="info" value={item} key={index}>{item}</ToggleButton>)} })}
                </ToggleButtonGroup>
               <h4>Interests:</h4>
               <Form type="checkbox">
