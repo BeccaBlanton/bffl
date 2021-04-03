@@ -4,9 +4,35 @@ const routes = require("./routes");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
+// const socketio = require('socket.io')
+// const httpServer = require("http").createServer(app);
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+// const expressServer = 
+const httpServer = require('http').createServer(app);
+
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+    methods: ["GET", "POST"]
+  }
+});
+
+
+
+// socketio(expressServer)
+
+io.on('connection', (socket) => {
+  console.log('Client connected');
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+  });
+  socket.on('disconnect', () => console.log('Client disconnected'));
+});
+
+
 
 // To be used is running locally:
 var corsOptions = {
@@ -45,6 +71,6 @@ app.get("*", (req, res) => {
     res.sendFile('index.html', { root });
 })
 
-app.listen(PORT, function () {
+httpServer.listen(PORT, function () {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
-});
+})

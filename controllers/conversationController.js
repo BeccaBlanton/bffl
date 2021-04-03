@@ -1,23 +1,34 @@
 const db = require("../models");
 
-// Defining methods for the favoritesController
+// Defining methods for the conversationController
 module.exports = {
   findAll: function(req, res) {
-    db.Favorites
+    db.Conversation
       .find(req.query)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findByName: function(req, res) {
-    db.Favorites
+    db.Conversation
       .find({username: req.params.username})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    db.Favorites
+    db.Conversation
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
+  },
+  updateById: function(req, res) {
+    db.Conversation
+      .findOneAndUpdate({_id: req.params.id}, {$set: req.body }, {new: true},
+        (err) => {
+          if(err){
+            console.log("err with update")
+          }
+        })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 };
