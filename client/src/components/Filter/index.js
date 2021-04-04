@@ -197,10 +197,6 @@ function Filter(props){
   
       const marks = [
           {
-            value: 10,
-            label: '10'
-          },
-          {
             value: 20,
             label: '20',
           },
@@ -215,7 +211,11 @@ function Filter(props){
           {
             value: 50,
             label: '50',
-          }
+          },
+          {
+            value: 60,
+            label: '60'
+          },
         ];
       
 return (
@@ -235,9 +235,9 @@ return (
                   aria-labelledby="discrete-slider"
                   valueLabelDisplay="auto"
                   step={5}
+                  marks
                   min={0}
                   max={50}
-                  marks={marks}
               />
               <Badge variant="info"> Distance: {distance} miles</Badge>
               </div>
@@ -253,6 +253,7 @@ return (
                       getAriaValueText={valuetext}
                       min={18}
                       max={66}
+                      marks={marks}
                   />
               </div>
                   <Badge variant="info">Age Range: {ageRange[0]+' - '+ageRange[1]} years old</Badge>
