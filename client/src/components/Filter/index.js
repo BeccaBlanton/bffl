@@ -5,7 +5,7 @@ import getUserProfile from "../../utils/getUserProfile";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Badge from 'react-bootstrap/Badge'
@@ -213,40 +213,10 @@ function Filter(props){
             label: '50',
           },
           {
-               value: 60,
-              label: '60',
-            },
+            value: 60,
+            label: '60'
+          },
         ];
-  
-        const PrettoSlider = withStyles({
-          root: {
-            color: '#17a2b8',
-            height: 8,
-          },
-          thumb: {
-            height: 24,
-            width: 24,
-            backgroundColor: '#fff',
-            border: '2px solid currentColor',
-            marginTop: -8,
-            marginLeft: -12,
-            '&:focus, &:hover, &$active': {
-              boxShadow: 'inherit',
-            },
-          },
-          active: {},
-          valueLabel: {
-            left: 'calc(-50% + 4px)',
-          },
-          track: {
-            height: 8,
-            borderRadius: 4,
-          },
-          rail: {
-            height: 8,
-            borderRadius: 4,
-          },
-        })(Slider);
       
 return (
   <div className="container">
@@ -257,7 +227,7 @@ return (
               <Typography id="discrete-slider" gutterBottom>
                   Distance:
               </Typography>
-              <PrettoSlider
+              <Slider
                   value={distance}
                   onChange={handleDistanceChange}
                   defaultValue={15}
@@ -275,7 +245,7 @@ return (
                   <Typography id="range-slider" gutterBottom>
                       Age Range:
                   </Typography>
-                  <PrettoSlider
+                  <Slider
                       value={ageRange}
                       onChange={handleAgeChange}
                       valueLabelDisplay="auto"
@@ -285,8 +255,9 @@ return (
                       max={66}
                       marks={marks}
                   />
+              </div>
                   <Badge variant="info">Age Range: {ageRange[0]+' - '+ageRange[1]} years old</Badge>
-                  </div>
+                  
               </div>
               <h4>Gender:</h4>
               <ToggleButtonGroup type="checkbox" name="gender" onChange={handleGenderChange} >

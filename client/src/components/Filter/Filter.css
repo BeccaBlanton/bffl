@@ -1,3 +1,26 @@
 .btn-group-toggle {
     flex-wrap: wrap; 
 }
+.MuiSlider-root {
+    color: #17a2b8!important;
+}
+.MuiSlider-thumb {
+    height: 20px!important;
+    width: 24px!important;
+    background-color: #fff!important;
+    border: 2px solid currentColor!important;
+    margin-top: -8px!important;
+    margin-left: -12px!important;
+
+}
+.MuiSlider-valueLabel {
+    left: calc(-50% + 4px)!important;
+}
+.MuiSlider-track {
+    height: 8px!important;
+    border-radius: 4px!important;
+}
+.MuiSlider-rail {
+    height: 8px!important;
+    border-radius: 4px!important;
+}
