@@ -12,6 +12,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Filter from '../components/Filter'
 import Toast from 'react-bootstrap/Toast'
+import Card from 'react-bootstrap/Card'
 
 import './css/Matching.css'
 
@@ -138,7 +139,7 @@ function Matching (props) {
         })
 
         .catch(err => { 
-          if (err.response.status === 401 || err.response.status === 403) { 
+          if (err.response) { 
             console.log(err.response.status)
             AuthService.logout()
             props.history.push("/login");
@@ -292,12 +293,14 @@ function Matching (props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      <div className='cardContainer'>
+      <div className='container'>
       {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.username} onSwipe={(dir) => swiped(dir, userProfile.username, userProfile._id)} onCardLeftScreen={() => outOfFrame(userProfile.username)} preventSwipe={['up', 'down']}>
-              <div className="card" style={{width: '24rem', borderRadius:'15px'}}>
+              <Card className="userCard">
             <UserCard
+                                style={{position: "absolute",maxWidth: '850px',
+                                maxHeight: '650px' }}
                                 key={userProfile._id}
                                 name={userProfile.username}
                                 avatar={userProfile.avatar || "https://loremflickr.com/320/240"}
@@ -315,7 +318,7 @@ function Matching (props) {
                 <Button variant="danger" onClick={() => swipe('left', userProfile.username, userProfile._id)}><i className="far fa-times-circle"></i></Button>
                 <Button variant="success" onClick={() => swipe('right', userProfile.username, userProfile._id)}><i className="far fa-check-circle"></i></Button>
             </ButtonGroup>
-            </div>
+            </Card>
           </TinderCard>
         )}
        

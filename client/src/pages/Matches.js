@@ -60,10 +60,8 @@ function Favorites (props){
         <h1 className='Header'>Your Matches:</h1>
         <div className="container">
             <div className="row">
-                <div className="card favoritesCard">
-                    <div className="row">
                         {matches.map(userProfile => (
-                        <Card className="userCard">
+                        <Card className="userCard" style={{marginTop: "0"}}>
                             <UserCard
                             key={userProfile.id}
                             name={userProfile.username}
@@ -82,8 +80,6 @@ function Favorites (props){
                         </Card>
                         ))}
                     </div>
-                </div>
-            </div>
         </div>
     </main>
     )

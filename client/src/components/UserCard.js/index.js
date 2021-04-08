@@ -30,8 +30,8 @@ function UserCard (props){
                     </h5>
                     <h3>Interests:</h3>
                         <h3 style={{margin:"auto"}}>
-                        {props.interests.map(item => (
-                        <Badge pill variant="info">{item.interest}</Badge>
+                        {props.interests.map((item, index) => (
+                        <Badge key={index} pill variant="info">{item.interest}</Badge>
                     ))}
                     </h3>
                 </div>
