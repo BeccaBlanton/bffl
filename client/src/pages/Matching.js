@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button'
 import Filter from '../components/Filter'
 import Toast from 'react-bootstrap/Toast'
 import Card from 'react-bootstrap/Card'
+import './css/Modal.css'
 
 import './css/Matching.css'
 
@@ -297,10 +298,8 @@ function Matching (props) {
       {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.username} onSwipe={(dir) => swiped(dir, userProfile.username, userProfile._id)} onCardLeftScreen={() => outOfFrame(userProfile.username)} preventSwipe={['up', 'down']}>
-              <Card className="userCard">
+              <Card className="userCard" style={{position: "absolute",maxWidth: '850px', maxHeight: '650px', margin: '1.75rem auto'}}>
             <UserCard
-                                style={{position: "absolute",maxWidth: '850px',
-                                maxHeight: '650px' }}
                                 key={userProfile._id}
                                 name={userProfile.username}
                                 avatar={userProfile.avatar || "https://loremflickr.com/320/240"}
