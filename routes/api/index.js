@@ -5,6 +5,7 @@ const favoritesRoutes = require("./favorites-api");
 const userRoutes = require("./user-api")
 const matchRoutes = require("./match-api")
 const chatRoutes = require("./chat-api")
+const conversationRoutes = require("./conversation-api")
 
 
 // profile routes
@@ -23,5 +24,7 @@ router.use("/user", userRoutes);
 router.use("/match", matchRoutes)
 
 router.use("/chat", chatRoutes)
+
+router.use("/conversation", conversationRoutes)
 
 module.exports = router;
