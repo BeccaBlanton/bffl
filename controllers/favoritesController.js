@@ -1,6 +1,6 @@
 const db = require("../models");
 
-// Defining methods for the interestsController
+// Defining methods for the favoritesController
 module.exports = {
   findAll: function(req, res) {
     db.Favorites

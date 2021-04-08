@@ -8,7 +8,7 @@ const useChat = () => {
   //when component mounts and changes
   useEffect(() => {
     socketRef.current = socketIOClient(
-      "http://localhost:5001",
+      "http://localhost:3001",
       { withCredentials: false }
     );
 

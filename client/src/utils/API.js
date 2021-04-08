@@ -53,6 +53,9 @@ export default {
     },
     findMatches: (username) => {
         return axios.get(`api/match/${username}`, { headers: authHeader() })
+    },
+    createSession: (data) => {
+        return axios.post(`api/chat`, data, { headers: authHeader() } )
     }
 
 }

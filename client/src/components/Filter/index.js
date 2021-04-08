@@ -61,16 +61,16 @@ function Filter(props){
 
   useEffect(() => {
     if(filters){
-      setInterestFilter(filters.interests)
+      setInterestFilter([filters.interests])
       setAgeRange(filters.ageRange)
       setDistance(filters.distance)
-      setFilterCannabis(filters.cannabis)
-      setFilterDrink(filters.drink)
-      setFilterSmoke(filters.smoke)
-      setFilterGender(filters.gender)
-      setFilterPolitics(filters.politics)
-      setFilterSign(filters.sign)
-      setFilterChildren(filters.children)
+      setFilterCannabis([filters.cannabis])
+      setFilterDrink([filters.drink])
+      setFilterSmoke([filters.smoke])
+      setFilterGender([filters.gender])
+      setFilterPolitics([filters.politics])
+      setFilterSign([filters.sign])
+      setFilterChildren([filters.children])
 
     }
   }, [filters])
@@ -262,7 +262,7 @@ return (
               <h4>Gender:</h4>
               <ToggleButtonGroup type="checkbox" name="gender" onChange={handleGenderChange} >
                 {genderOptions.map((item, index) =>  
-                  { if(filterGender.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active" key={index}>{item}</ToggleButton>)} 
+                  { if(filterGender.includes(item) === true){ return (<ToggleButton variant="info" value={item} className="active" checked={true} key={index}>{item}</ToggleButton>)} 
                     else { return (<ToggleButton variant="info" value={item} key={index}>{item}</ToggleButton>)} })}
               </ToggleButtonGroup>
               <h4>Political Affiliation:</h4>
