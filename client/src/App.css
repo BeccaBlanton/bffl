@@ -75,9 +75,37 @@ label {
 }
 
 .display {
-  border: 1px, lightgrey;
+  padding: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
   background-color: white;
-  max-height: 600px;
-  width: 100%;
+  height: 400px;
+  width: 600px;
 }
 
+.messageBox {
+  width: 600px !important;
+  resize: none;
+}
+
+.user-list-item {
+  background-color: #17a2b8;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid #e2564c;
+  color: white;
+  height: 70px;
+  padding-top: 3%;
+}
+
+.green-circle {
+  display: block;
+  color: rgb(95, 255, 47);
+  font-size: 14px;
+}
+
+.red-circle {
+  display: block;
+  color: #e2564c;
+  font-size: 14px;
+}

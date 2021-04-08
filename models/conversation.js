@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const conversationSchema = new Schema({
+    conversationID: {type: String, required: true},
     participants: [ { type: String } ],
     messages: [{
         author: {type: String},

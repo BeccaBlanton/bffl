@@ -56,6 +56,8 @@ export default {
     },
     createSession: (data) => {
         return axios.post(`api/chat`, data, { headers: authHeader() } )
-    }
-
+    },
+    saveMessage: (data) => {
+        return axios.post(`api/conversation`, data, { headers: authHeader() } )
+    },
 }
