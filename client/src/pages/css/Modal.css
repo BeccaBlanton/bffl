@@ -8,3 +8,9 @@
     padding: 15px;
     border-radius: 15px!important;
   }
+
+  @media (min-width: 710px){
+  .modal-dialog {
+    max-width: 700px!important;
+  }
+}
