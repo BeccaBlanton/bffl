@@ -10,7 +10,7 @@ const Geolocation = () => {
     });
 
     const onSuccess = (location) => {
-        
+        console.log(location.coords)
         setLocation({
             loaded: true,
             coordinates: {

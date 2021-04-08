@@ -75,4 +75,10 @@ label {
   border-radius: 15px!important;
 }
 
+.display {
+  border: 1px, lightgrey;
+  background-color: white;
+  max-height: 600px;
+  width: 100%;
+}
 

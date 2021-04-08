@@ -21,15 +21,15 @@ const getUserProfile = () => {
       })
     const [filters, setFilters] = useState({
         distance: 50,
-        gender: "",
-        politics: "",
+        gender: [],
+        politics: [],
         ageRange: [18, 68],
-        children: "",
-        drink: "",
-        smoke: "",
-        cannabis: "",
-        sign: "",
-        interests: ""
+        children: [],
+        drink: [],
+        smoke: [],
+        cannabis: [],
+        sign: [],
+        interests: []
     })
 
     const [filterUpdate, setFilterUpdate] = useState(true)
