@@ -14,9 +14,13 @@ function Inbox (props) {
     const [username, setUsername] = useState(currentUser.username)
     const [usernameIsSet, setUsernameIsSet] = useState(false)
     const [message, setMessage] = useState()
+    const [author, setAuthor] = useState()
+    const [messageList, setMessageList] = useState([])
     const [sessionID, setSessionID] = useState()
     const [selectedUser, setSelectedUser] = useState({ userID: 'i-7GDlg9FYfuRWbTAAAF', username: 'Muffins', messages: [] })
     const users = []
+    let newState = []
+    const [userList, setUserList] = useState([])
     const { socket } = socketIO()
     
     function messageChange (e){
@@ -28,7 +32,15 @@ function Inbox (props) {
         e.preventDefault()
         
         
+
         if (message) {
+            newState = [...messageList, {
+                author: username,
+                content: message
+            }]
+            
+            setMessageList(newState)
+            
             socket.emit("private message", {
                 content: message,
                 to: "_HOHd-KkvQxkgY7mAAAD",
@@ -47,11 +59,6 @@ function Inbox (props) {
               }]
           })
           .then(() => {
-            
-            //   selectedUser.messages.push({
-            //     content: message,
-            //     fromSelf: true,
-            //   });
               console.log(message)
           })
           .catch(err => console.log(err))
@@ -135,7 +142,7 @@ function Inbox (props) {
             <Row>
               <Col xs={12} md={4}>
                 <ul>
-                  <li className="user-list-item">User 1 <i className="fas fa-circle green-circle"> Online</i></li>
+                  <li className="user-list-item">Muffins <i className="fas fa-circle green-circle"> Online</i></li>
                   {/* {users.map(user => 
                 { return ( user ? <li>{user.username}<br/><br/> <i class="fas fa-circle green-circle">Online</i></li> : 
                 <li>{user.username}<br/><br/><i class="fas fa-circle red-circle">Offline</i></li>)})} */}
@@ -144,8 +151,8 @@ function Inbox (props) {
               <Col xs={12} md={8}>
                 <Row>
                   <div className="display">
-                    <h5>Username</h5>
-                    <p>This is my message!!</p>
+                      {messageList.map(message => { return (<><h5>{message.author}</h5>
+                    <p>{message.content}</p></>)})}
                   </div>
                 </Row>
                 <Row>
